@@ -117,12 +117,12 @@ nav {
 
 .keybinding__label {
   background: var(--white-color);
-  border: 1px solid var(--light-gray-color);
-  box-shadow: 0 1px 0 0 var(--medium-gray-color);
+  border: 1px solid #F0C416;
+  box-shadow: 0 1px 0 0 #D9D624;
   border-radius: 3px;
   font-family: Courier;
   font-size: 0.7rem;
-  color: var(--dark-gray-color);
+  color: #F20000;
   padding: 3px 3px 1px 3px;
   vertical-align: middle;
 }
