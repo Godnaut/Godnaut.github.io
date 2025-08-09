@@ -1,0 +1,56 @@
+/* terminal-style.css */
+.post__content pre {
+  background: #0f111a;
+  color: #33ff55;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  padding: 1em 1.2em;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 8px #33ff55aa,
+    0 0 10px #33ff5577;
+  overflow-x: auto;
+  line-height: 1.4;
+  position: relative;
+  user-select: text;
+  margin: 1em 0;
+}
+
+.post__content pre::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  border-radius: 6px;
+}
+
+.post__content pre code {
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre-wrap;
+}
+
+.post__content pre.nohighlight {
+  background: #0f111a;
+  color: #33ff55;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  padding: 1em 1.2em;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 8px #33ff55aa,
+    0 0 10px #33ff5577;
+  overflow-x: auto;
+  margin: 1em 0;
+}
