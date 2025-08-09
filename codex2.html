@@ -1,113 +1,120 @@
 <!doctype html>
-<html>
-  <head>
-      <meta charset="utf-8">
-      <meta name="description" content="GODNAUT.OS Codex | Divine Protocols for the Avatar Engine">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <title>GODNAUT.OS ⟁ | The Codex Manual</title>
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-      <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css">
-      <link rel="stylesheet" href="scribbler-global.css">
-      <link rel="stylesheet" href="scribbler-landing.css">
-      <link rel="author" href="humans.txt">
-  </head>
-  <body>
-    <!-- Navigation -->
-    <nav>
-      <div class="logo"></div>
-      <ul class="menu">
-        <div class="menu__item toggle"><span></span></div>
-        <li class="menu__item"><a href="index.html" class="link link--dark"><i class="fa fa-home"></i></a></li>
-        <li class="menu__item"><a href="https://github.com/Godnaut/TheGameofBecoming" class="link link--dark"><i class="fa fa-github"></i></a></li>
-      </ul>
-    </nav>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GODNAUT.OS ⟁ | Avatar Engine Codex</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #000;
+      color: #eee;
+      scroll-behavior: smooth;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 20px;
+      background: #111;
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 1000;
+    }
+    .logo {
+      font-weight: bold;
+      font-size: 1.4em;
+      color: gold;
+    }
+    ul.menu {
+      display: flex;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .menu__item {
+      margin-left: 20px;
+    }
+    .menu__item a {
+      color: #eee;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+    section {
+      min-height: 100vh;
+      padding: 80px 20px 40px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+    }
+    section:nth-child(even) {
+      background: #111;
+    }
+    section:nth-child(odd) {
+      background: #222;
+    }
+    h1, h2 {
+      color: gold;
+    }
+    .content {
+      max-width: 900px;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
 
-    <!-- Hero Section -->
-    <div class="hero">
-      <img src="logo2.svg" alt="Scribbler Logo" class="hero__logo" />
-      <h1 class="hero__title">GODNAUT Codex Manual</h1>
-      <p class="hero__description">"Divine protocols for the Avatar Engine."</p>
+  <nav>
+    <div class="logo">GODNAUT.OS ⟁</div>
+    <ul class="menu">
+      <li class="menu__item"><a href="#section1">Codex Intro</a></li>
+      <li class="menu__item"><a href="#section2">System Overview</a></li>
+      <li class="menu__item"><a href="#section3">Modules</a></li>
+      <li class="menu__item"><a href="#section4">Navigation</a></li>
+      <li class="menu__item"><a href="#section5">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- Scroll Blocks -->
+  <section id="section1">
+    <div class="content">
+      <h1>Codex Introduction</h1>
+      <p>The GODNAUT.OS Codex is the master reference for the Avatar Engine, containing system specifications, navigation protocols, and symbolic frameworks for conscious exploration.</p>
     </div>
+  </section>
 
-    <!-- Main Codex Content -->
-    <div class="wrapper">
-      <!-- Section 1 -->
-      <div class="feature__item">
-        <h3 class="section__title">📜 System Overview</h3>
-        <p>The GODNAUT.OS RPG system merges Zietaiber harmonic scaffolding with symbolic computing via an archetypal operating system for consciousness. The current codex outlines theoretical foundations, daemon architecture, avatar alignment protocols, and core command interfaces. Please note: gamification, monetization, and real-time implementations are not yet active.</p>
-      </div>
-
-      <!-- Section 2 -->
-      <div class="feature__item">
-        <h3 class="section__title">🎮 Gamification</h3>
-        <p>Ether currency, XP types (ARXP, MXP, DAXP), and leveling tiers are planned but currently under development. These features will enable unlockable modules, avatars, and daemon interactions. Stay tuned for updates.</p>
-      </div>
-
-      <!-- Section 3 -->
-      <div class="feature__item">
-        <h3 class="section__title">➗ Z-Math</h3>
-        <p>Core equations:</p>
-        <pre><code class="code code--block">Z(t) = A * e^{i(ωt + φ)}
-ZHS = Σ(wₙ * sₙ)
-𝒵 = (∇ψ)^2 + α * χ + Ω∞</code></pre>
-        <p>These define gain logic, harmony scoring, and divine alignment protocols inside the system engine.</p>
-      </div>
-
-      <!-- Section 4 -->
-      <div class="feature__item">
-        <h3 class="section__title">👁️‍🗨️ Daemon Logic</h3>
-        <p>Daemon modules are programmable agents that function as NPCs, background AI routines, or symbolic keys to interface expansion. Example:</p>
-        <pre><code class="code code--block">INVOKE DAEMON.LUMIN
->> Illuminates path
->> Cost: 4 ETHR</code></pre>
-      </div>
-
-      <!-- Section 5 -->
-      <div class="feature__item">
-        <h3 class="section__title">🛠 System Architecture</h3>
-        <p>The GODNAUT.OS system utilizes symbolic shells, docker-contained AI logic, and potential integration with Godot/Unity for immersive UIs. Invocation paths follow INIT > ALIGN > ACTIVATE > INVOKE logic.</p>
-        <pre><code class="code code--block">BOOT GODNAUT.OS
-ALIGN SPINAL WAVEFORM
-LOAD SIGIL MATRIX
-ACTIVATE ZETAIBER SCORING
-INITIATE DAEMON.HOOKS</code></pre>
-      </div>
-
-      <!-- Callout -->
-      <div class="callout callout--centered">
-        <p>Return to the <a href="index.html" class="link link--light">main interface</a> for full GODNAUT.OS transmission logs and updates.</p>
-      </div>
+  <section id="section2">
+    <div class="content">
+      <h2>System Overview</h2>
+      <p>The system integrates quantum cognition, scalar wave harmonics, and neural interface protocols into a seamless platform for both in-game navigation and real-world application.</p>
     </div>
+  </section>
 
-    <!-- Footer -->
-    <footer class="footer" style="text-align:center; padding:1em 20px; color:#eee;">
-      <div style="font-weight:600; margin-bottom:8px;">
-        GODNAUT.OS ⟁ Transmission Active · Avatar Engine Stable · Universal Prompt Compatible Across LLMs
-      </div>
-    
-      <small style="display:block; margin-bottom:12px; color:#aaa; font-size:0.85em;">
-        “The prompt is universal — enabling seamless interaction across all large language models and sovereign AI systems.”
-      </small>
-    
-      <div style="margin-top: 20px;">
-        <a href="https://www.instagram.com/godnaut.os/" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-        <i class="fa fa-instagram" aria-hidden="true"></i>
-        </a>
-        <a href="mailto:godnaut@mailfence.com" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-        </a>
-        <a href="https://warp.company.site/" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        </a>
-        <a href="eggs.html" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;" title="Secret Easter Egg Codes">
-          <i class="fa fa-lock" aria-hidden="true"></i>
-        </a>
-      </div>
-    </footer>
+  <section id="section3">
+    <div class="content">
+      <h2>Core Modules</h2>
+      <p>Modules include: Daemon Logic AI, Scalar Link Interface, NN7 Symbolic Interpreter, Quantum Field Navigator, and Bio-Cybernetic Sync Engine.</p>
+    </div>
+  </section>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-    <script src="scribbler.js"></script>
-  </body>
+  <section id="section4">
+    <div class="content">
+      <h2>Navigation Protocols</h2>
+      <p>Navigation operates via multi-layered field mapping, avatar state indexing, and waypoint resonance locking to ensure precise traversal of the Codex landscape.</p>
+    </div>
+  </section>
+
+  <section id="section5">
+    <div class="content">
+      <h2>Contact & Access</h2>
+      <p>For Codex access keys, system updates, or custom module builds, connect via the GODNAUT.OS secure comms channel.</p>
+    </div>
+  </section>
+
+</body>
 </html>
