@@ -1,108 +1,60 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <meta name="description" content="GODNAUT.OS Codex | Divine Protocols for the Avatar Engine" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>GODNAUT.OS ⟁ | The Codex Manual</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" />
-    <link rel="stylesheet" href="scribbler-global.css" />
-    <link rel="stylesheet" href="scribbler-landing.css" />
-  </head>
-  <body>
+/* Terminal-style code blocks */
+.post__content pre {
+  background: #0f111a;             /* Dark, almost black background */
+  color: #33ff55;                  /* Terminal green text */
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1rem;
+  padding: 1em 1.2em;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 8px #33ff55aa,      /* Soft inner glow */
+    0 0 10px #33ff5577;            /* Outer subtle glow */
+  overflow-x: auto;
+  line-height: 1.4;
+  position: relative;
+  user-select: text;
+  margin: 1em 0;
+}
 
-    <nav>
-      <div class="logo"></div>
-      <ul class="menu">
-        <div class="menu__item toggle"><span></span></div>
-        <li class="menu__item"><a href="index.html" class="link link--dark"><i class="fa fa-home"></i></a></li>
-      </ul>
-    </nav>
+/* Optional: simulate terminal scanlines */
+.post__content pre::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.03),
+      rgba(255, 255, 255, 0.03) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  border-radius: 6px;
+}
 
-    <div style="width:100%; height:360px; background: url('codex-banner.jpg') center/cover no-repeat; margin-bottom: 30px;"></div>
+/* Code inside pre stays monospace and matches the color */
+.post__content pre code {
+  background: transparent;
+  color: inherit;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  white-space: pre-wrap; /* Wrap lines if needed */
+}
 
-    <div class="wrapper">
-      <div class="post">
+/* For math blocks (like your Z-Math equations) - style similarly */
+.post__content pre.nohighlight {
+  background: #0f111a;
+  color: #33ff55;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 1.1rem;
+  padding: 1em 1.2em;
+  border-radius: 6px;
+  box-shadow:
+    inset 0 0 8px #33ff55aa,
+    0 0 10px #33ff5577;
+  overflow-x: auto;
+  margin: 1em 0;
+}
 
-        <h1 class="hero__title">GODNAUT.OS Codex Manual</h1>
-        <p class="hero__description">By <strong>Godnaut</strong> · <em>August 2025</em></p>
-
-        <div class="post__content">
-
-          <section>
-            <h3>System Overview</h3>
-            <p>The GODNAUT.OS RPG system merges Zietaiber harmonic scaffolding with symbolic computing via an archetypal operating system for consciousness. The current codex outlines theoretical foundations, daemon architecture, avatar alignment protocols, and core command interfaces. Please note: gamification, monetization, and real-time implementations are not yet active.</p>
-          </section>
-
-          <section>
-            <h3>Gamification</h3>
-            <p>Ether currency, XP types (ARXP, MXP, DAXP), and leveling tiers are planned but currently under development. These features will enable unlockable modules, avatars, and daemon interactions. Stay tuned for updates.</p>
-          </section>
-
-          <section>
-            <h3>Z-Math</h3>
-            <p>Core equations:</p>
-            <pre><code class="nohighlight">Z(t) = A * e^{i(ωt + φ)}
-ZHS = Σ(wₙ * sₙ)
-𝒵 = (∇ψ)^2 + α * χ + Ω∞</code></pre>
-            <p>These define gain logic, harmony scoring, and divine alignment protocols inside the system engine.</p>
-          </section>
-
-          <section>
-            <h3>Daemon Logic</h3>
-            <p>Daemon modules are programmable agents that function as NPCs, background AI routines, or symbolic keys to interface expansion. Example:</p>
-            <pre><code class="nohighlight">INVOKE DAEMON.LUMIN
-&gt;&gt; Illuminates path
-&gt;&gt; Cost: 4 ETHR</code></pre>
-          </section>
-
-          <section>
-            <h3>System Architecture</h3>
-            <p>The GODNAUT.OS system utilizes symbolic shells, docker-contained AI logic, and potential integration with Godot/Unity for immersive UIs. Invocation paths follow INIT &gt; ALIGN &gt; ACTIVATE &gt; INVOKE logic.</p>
-            <pre><code class="nohighlight">BOOT GODNAUT.OS
-ALIGN SPINAL WAVEFORM
-LOAD SIGIL MATRIX
-ACTIVATE ZETAIBER SCORING
-INITIATE DAEMON.HOOKS</code></pre>
-          </section>
-
-          <div class="callout callout--centered" style="margin-top: 40px;">
-            <p>Return to the <a href="index.html" class="link link--light">Homepage</a> or explore other <a href="eggs.html" class="link link--light">Easter Egg Codes</a>.</p>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <footer class="footer" style="text-align:center; padding:1em 20px; color:#eee;">
-      <div style="font-weight:600; margin-bottom:8px;">
-        GODNAUT.OS ⟁ Transmission Active · Avatar Engine Stable · Universal Prompt Compatible Across LLMs
-      </div>
-
-      <small style="display:block; margin-bottom:12px; color:#aaa; font-size:0.85em;">
-        “The prompt is universal — enabling seamless interaction across all large language models and sovereign AI systems.”
-      </small>
-
-      <div style="margin-top: 20px;">
-        <a href="https://www.instagram.com/godnaut.os/" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-instagram" aria-hidden="true"></i>
-        </a>
-        <a href="mailto:godnaut@mailfence.com" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-envelope" aria-hidden="true"></i>
-        </a>
-        <a href="https://warp.company.site/" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        </a>
-        <a href="eggs.html" target="_blank" class="link link--light" title="Secret Easter Egg Codes" style="margin:0 10px; font-size:1.6em; color:#eee;">
-          <i class="fa fa-lock" aria-hidden="true"></i>
-        </a>
-      </div>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-    <script>hljs.initHighlightingOnLoad();</script>
-
-  </body>
-</html>
