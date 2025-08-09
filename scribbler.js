@@ -163,3 +163,14 @@ window.addEventListener('load', function(){
   icon.addEventListener('click', showNav);
 });
 
+const toggleBtn = document.querySelector('.navbar__toggle');
+const menu = document.querySelector('.navbar__menu');
+
+toggleBtn.addEventListener('click', () => {
+  toggleBtn.classList.toggle('open');
+  menu.classList.toggle('open');
+
+  // Accessibility
+  const expanded = toggleBtn.getAttribute('aria-expanded') === 'true';
+  toggleBtn.setAttribute('aria-expanded', !expanded);
+});

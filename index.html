@@ -13,14 +13,24 @@
       <link rel="author" href="humans.txt">
   </head>
   <body>
-    <nav>
-      <div class="logo"></div>
-      <ul class="menu">
-        <div class="menu__item toggle"><span></span></div>
-        <li class="menu__item"><a href="codex.html" class="link link--dark"><i class="fa fa-book"></i> </a></li>
-        <li class="menu__item"><a href="https://github.com/Godnaut/TheGameofBecoming" class="link link--dark"><i class="fa fa-github"> </i></a></li>
+    <nav class="navbar">
+      <div class="navbar__logo">
+        <a href="index.html" aria-label="Homepage">
+          <img src="logo.svg" alt="GODNAUT OS Logo" />
+        </a>
+      </div>
+    
+      <button class="navbar__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbar-menu">
+        <span class="hamburger"></span>
+      </button>
+    
+      <ul class="navbar__menu" id="navbar-menu">
+        <li><a href="codex.html">Codex</a></li>
+        <li><a href="https://github.com/Godnaut/TheGameofBecoming" target="_blank" rel="noopener">GitHub</a></li>
+        <li><a href="overview.html" title="Secret Easter Egg Codes">Overview</a></li>
       </ul>
     </nav>
+    
     <div class="hero">
       <img src="logo2.svg" alt="Scribbler Logo" class="hero__logo" />
       <h1 class="hero__title">GODNAUT OS</h1>
@@ -240,9 +250,6 @@
         </a>
         <a href="https://warp.company.site/" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;">
           <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-        </a>
-        <a href="eggs.html" target="_blank" class="link link--light" style="margin:0 10px; font-size:1.6em; color:#eee;" title="Secret Easter Egg Codes">
-          <i class="fa fa-lock" aria-hidden="true"></i>
         </a>
       </div>
     </footer>
