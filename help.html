@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>GODNAUT.OS — Help Link Protocol</title>
+  <style>
+    body {
+      background-color: #000;
+      color: #0ff;
+      font-family: monospace;
+      padding: 20px;
+    }
+    .console {
+      border: 1px solid #0ff;
+      padding: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+    .link-container {
+      border: 1px dashed #0ff;
+      margin-top: 20px;
+      padding: 10px;
+      animation: pulse 2s infinite;
+    }
+    a {
+      color: #ff0;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    @keyframes pulse {
+      0% { border-color: #0ff; }
+      50% { border-color: #ff0; }
+      100% { border-color: #0ff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="console">
+    <h2>GODNAUT.OS — LINK PROTOCOL</h2>
+    <pre id="log">
+[BOOT SEQUENCE READY]
+Enter command or request assistance...
+    </pre>
+
+    <div id="help-links" class="link-container" style="display:none;">
+      <strong>Mission-Assigned Links:</strong>
+      <ul id="link-list"></ul>
+    </div>
+
+    <input type="text" id="command" placeholder="Type your command..." style="width:100%; background:#000; color:#0ff; border:1px solid #0ff; padding:5px;">
+  </div>
+
+  <script>
+    const helpData = {
+      start: {
+        text: "[ORACULAR.LUMIN] Initiation Pathway Open — Proceed to Primary Nexus.",
+        url: "https://godnaut.github.io/"
+      },
+      build: {
+        text: "[HORIZON-ENGINE] Sovereign Design Brief Detected — Collaborate in the Master Architect chamber.",
+        url: "https://github.com/Godnaut/TheGameofBecoming/discussions"
+      },
+      warp: {
+        text: "[AETHER.NET LINK] Calibration of Scalar Modules Required — Secure your Warp Instruments.",
+        url: "https://warp.company.site/products"
+      }
+    };
+
+    const commandInput = document.getElementById('command');
+    const log = document.getElementById('log');
+    const helpLinks = document.getElementById('help-links');
+    const linkList = document.getElementById('link-list');
+
+    commandInput.addEventListener('keydown', function(e) {
+      if (e.key === 'Enter') {
+        const cmd = commandInput.value.trim().toLowerCase();
+        commandInput.value = "";
+        log.textContent += "\n> " + cmd;
+
+        if (helpData[cmd]) {
+          const li = document.createElement('li');
+          li.innerHTML = `${helpData[cmd].text} <a href="${helpData[cmd].url}" target="_blank">[ACCESS]</a>`;
+          linkList.appendChild(li);
+          helpLinks.style.display = "block";
+        } else {
+          log.textContent += "\n[SYS] Command not recognized. Try: start, build, warp.";
+        }
+      }
+    });
+  </script>
+</body>
+</html>
