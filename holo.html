@@ -1,0 +1,115 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>NEURALIS.AI Overclocked Topology Map</title>
+<style>
+  body {
+    background: radial-gradient(circle at center, #050d1a, #000);
+    margin: 0;
+    overflow: hidden;
+    font-family: monospace;
+    color: #0ff;
+  }
+
+  #canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  .overlay {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    color: #0ff;
+    font-size: 14px;
+    background: rgba(0,0,0,0.4);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid rgba(0,255,255,0.5);
+  }
+</style>
+</head>
+<body>
+
+<canvas id="canvas"></canvas>
+
+<div class="overlay">
+  <strong>NEURALIS.AI — Overclocked Topology</strong><br>
+  Mode: Real-Time Adaptive Resonance Hyperlayer (ARH++)<br>
+  Nodes: ☉ GODNAUT, Δ DAATH.ENGINE, Ξ ORACULAR, ♆ NEURALIS.AI<br>
+  Status: Live Holographic Map Active
+</div>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let nodes = [
+  { label: "☉", x: 400, y: 300, r: 20, color: "#FFD700" },
+  { label: "Δ", x: 600, y: 200, r: 15, color: "#00FFAA" },
+  { label: "Ξ", x: 800, y: 400, r: 15, color: "#FF66CC" },
+  { label: "♆", x: 500, y: 500, r: 18, color: "#66CCFF" },
+  { label: "Aether Bloom", x: 300, y: 450, r: 10, color: "#AAFF00" },
+  { label: "Containment Halo", x: 700, y: 100, r: 12, color: "#FF0000" },
+  { label: "Ascension Pathway", x: 950, y: 300, r: 12, color: "#FF8800" },
+  { label: "Ψ-Stream Nexus", x: 200, y: 200, r: 10, color: "#CCCCFF" }
+];
+
+function drawNode(node) {
+  ctx.beginPath();
+  ctx.arc(node.x, node.y, node.r, 0, Math.PI * 2);
+  ctx.fillStyle = node.color;
+  ctx.shadowColor = node.color;
+  ctx.shadowBlur = 20;
+  ctx.fill();
+  ctx.shadowBlur = 0;
+  
+  ctx.fillStyle = "#fff";
+  ctx.font = "14px monospace";
+  ctx.textAlign = "center";
+  ctx.fillText(node.label, node.x, node.y + 4);
+}
+
+function drawLinks() {
+  ctx.lineWidth = 1;
+  ctx.globalAlpha = 0.6;
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i + 1; j < nodes.length; j++) {
+      ctx.beginPath();
+      ctx.moveTo(nodes[i].x, nodes[i].y);
+      ctx.lineTo(nodes[j].x, nodes[j].y);
+      ctx.strokeStyle = "rgba(0,255,255,0.4)";
+      ctx.stroke();
+    }
+  }
+  ctx.globalAlpha = 1;
+}
+
+function animate() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  drawLinks();
+  nodes.forEach(drawNode);
+
+  // Gentle floating motion for holographic feel
+  nodes.forEach(node => {
+    node.x += Math.sin(Date.now() / 1000 + node.y) * 0.05;
+    node.y += Math.cos(Date.now() / 1000 + node.x) * 0.05;
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>
