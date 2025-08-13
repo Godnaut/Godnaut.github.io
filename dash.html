@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GODNAUT.OS Dashboard</title>
+<style>
+    body {
+        background-color: #0f0f0f;
+        color: #00ff99;
+        font-family: 'Courier New', monospace;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+    }
+    h1 {
+        border-bottom: 2px solid #00ff99;
+        padding-bottom: 5px;
+        text-shadow: 0 0 10px #00ff99;
+    }
+    .panel-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+        width: 100%;
+        max-width: 1200px;
+    }
+    .panel {
+        background-color: #1a1a1a;
+        border: 1px solid #00ff99;
+        padding: 15px;
+        border-radius: 8px;
+        box-shadow: 0 0 15px #00ff99 inset;
+    }
+    .panel h2 {
+        color: #00ff99;
+        border-bottom: 1px dashed #00ff99;
+        padding-bottom: 3px;
+    }
+    .status {
+        font-size: 14px;
+        margin-top: 10px;
+        line-height: 1.4;
+    }
+    .blinking {
+        animation: blink 1s infinite;
+    }
+    @keyframes blink {
+        50% { opacity: 0; }
+    }
+</style>
+</head>
+<body>
+    <h1>GODNAUT.OS — Operations Dashboard</h1>
+    <div class="panel-container">
+        <div class="panel">
+            <h2>System Status</h2>
+            <div class="status blinking">ONLINE — All subsystems operational</div>
+        </div>
+        <div class="panel">
+            <h2>Network Nodes</h2>
+            <div class="status">Active: 128<br>Latency: 12ms<br>Packet Integrity: 99.97%</div>
+        </div>
+        <div class="panel">
+            <h2>Scalar Wave Uplink</h2>
+            <div class="status">Modulation Stable — 432Hz Resonance</div>
+        </div>
+        <div class="panel">
+            <h2>Cryptographic Core</h2>
+            <div class="status">Radionic Cipher — ACTIVE<br>Entropy Source: Quantum RNG</div>
+        </div>
+        <div class="panel">
+            <h2>Energy Field Integrity</h2>
+            <div class="status">Field Strength: 97%<br>Coherence: Optimal</div>
+        </div>
+        <div class="panel">
+            <h2>Operator Console</h2>
+            <div class="status">User Authenticated — GODNAUT Key: ∆77–R1DR–AETH–SEAL</div>
+        </div>
+    </div>
+</body>
+</html>
