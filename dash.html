@@ -3,81 +3,141 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GODNAUT.OS Dashboard</title>
+<title>GODNAUT.OS — OPS CONSOLE</title>
 <style>
     body {
-        background-color: #0f0f0f;
-        color: #00ff99;
+        background-color: #0a0f16;
+        color: #0fffcf;
         font-family: 'Courier New', monospace;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        margin: 0;
+        padding: 0;
+        overflow: hidden;
+    }
+    header {
+        text-align: center;
         padding: 20px;
+        border-bottom: 2px solid #0fffcf;
+        font-size: 1.5em;
+        letter-spacing: 2px;
     }
-    h1 {
-        border-bottom: 2px solid #00ff99;
-        padding-bottom: 5px;
-        text-shadow: 0 0 10px #00ff99;
-    }
-    .panel-container {
+    .dashboard {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
         gap: 20px;
-        width: 100%;
-        max-width: 1200px;
+        padding: 20px;
     }
     .panel {
-        background-color: #1a1a1a;
-        border: 1px solid #00ff99;
+        background: rgba(0, 255, 207, 0.05);
+        border: 1px solid #0fffcf;
         padding: 15px;
-        border-radius: 8px;
-        box-shadow: 0 0 15px #00ff99 inset;
+        border-radius: 10px;
+        box-shadow: 0 0 15px #0fffcf33;
+        animation: glow 2s infinite alternate;
     }
-    .panel h2 {
-        color: #00ff99;
-        border-bottom: 1px dashed #00ff99;
-        padding-bottom: 3px;
+    @keyframes glow {
+        from { box-shadow: 0 0 10px #0fffcf55; }
+        to { box-shadow: 0 0 25px #0fffcf; }
     }
     .status {
-        font-size: 14px;
-        margin-top: 10px;
-        line-height: 1.4;
+        font-size: 1.1em;
+        margin-bottom: 10px;
     }
-    .blinking {
-        animation: blink 1s infinite;
+    .value {
+        font-size: 1.5em;
+        color: #ff66ff;
     }
-    @keyframes blink {
-        50% { opacity: 0; }
+    canvas {
+        background: #0a0f16;
+        border-radius: 10px;
+        border: 1px solid #0fffcf;
     }
 </style>
 </head>
 <body>
-    <h1>GODNAUT.OS — Operations Dashboard</h1>
-    <div class="panel-container">
-        <div class="panel">
-            <h2>System Status</h2>
-            <div class="status blinking">ONLINE — All subsystems operational</div>
-        </div>
-        <div class="panel">
-            <h2>Network Nodes</h2>
-            <div class="status">Active: 128<br>Latency: 12ms<br>Packet Integrity: 99.97%</div>
-        </div>
-        <div class="panel">
-            <h2>Scalar Wave Uplink</h2>
-            <div class="status">Modulation Stable — 432Hz Resonance</div>
-        </div>
-        <div class="panel">
-            <h2>Cryptographic Core</h2>
-            <div class="status">Radionic Cipher — ACTIVE<br>Entropy Source: Quantum RNG</div>
-        </div>
-        <div class="panel">
-            <h2>Energy Field Integrity</h2>
-            <div class="status">Field Strength: 97%<br>Coherence: Optimal</div>
-        </div>
-        <div class="panel">
-            <h2>Operator Console</h2>
-            <div class="status">User Authenticated — GODNAUT Key: ∆77–R1DR–AETH–SEAL</div>
-        </div>
+
+<header>GODNAUT.OS — OPS CONSOLE</header>
+
+<div class="dashboard">
+    <div class="panel">
+        <div class="status">SYSTEM INTEGRITY</div>
+        <div class="value" id="integrity">100%</div>
     </div>
+    <div class="panel">
+        <div class="status">ENERGY FIELD</div>
+        <div class="value" id="energy">Stable</div>
+    </div>
+    <div class="panel">
+        <div class="status">CRYPTO-NODE STATUS</div>
+        <div class="value" id="nodes">128 Active</div>
+    </div>
+    <div class="panel">
+        <div class="status">QUANTUM LINK</div>
+        <div class="value" id="link">Connected</div>
+    </div>
+    <div class="panel">
+        <div class="status">RADIONIC FREQUENCY</div>
+        <div class="value" id="freq">7.83Hz</div>
+    </div>
+    <div class="panel">
+        <div class="status">NODE MAP</div>
+        <canvas id="nodeMap" width="300" height="200"></canvas>
+    </div>
+</div>
+
+<script>
+    // Animated node map
+    const canvas = document.getElementById('nodeMap');
+    const ctx = canvas.getContext('2d');
+    let nodes = [];
+
+    for (let i = 0; i < 15; i++) {
+        nodes.push({
+            x: Math.random() * canvas.width,
+            y: Math.random() * canvas.height,
+            dx: (Math.random() - 0.5) * 1.5,
+            dy: (Math.random() - 0.5) * 1.5
+        });
+    }
+
+    function drawNodes() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.fillStyle = '#0fffcf';
+        for (let i = 0; i < nodes.length; i++) {
+            ctx.beginPath();
+            ctx.arc(nodes[i].x, nodes[i].y, 4, 0, Math.PI * 2);
+            ctx.fill();
+        }
+        ctx.strokeStyle = '#ff66ff';
+        for (let i = 0; i < nodes.length; i++) {
+            for (let j = i + 1; j < nodes.length; j++) {
+                let dist = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
+                if (dist < 100) {
+                    ctx.beginPath();
+                    ctx.moveTo(nodes[i].x, nodes[i].y);
+                    ctx.lineTo(nodes[j].x, nodes[j].y);
+                    ctx.stroke();
+                }
+            }
+        }
+    }
+
+    function updateNodes() {
+        for (let i = 0; i < nodes.length; i++) {
+            nodes[i].x += nodes[i].dx;
+            nodes[i].y += nodes[i].dy;
+            if (nodes[i].x < 0 || nodes[i].x > canvas.width) nodes[i].dx *= -1;
+            if (nodes[i].y < 0 || nodes[i].y > canvas.height) nodes[i].dy *= -1;
+        }
+    }
+
+    function animate() {
+        drawNodes();
+        updateNodes();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+
 </body>
 </html>
