@@ -3,268 +3,130 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Live Scroll Monitoring Dashboard — IPFS Stability</title>
+<title>Godnaut.OS Scroll Dashboard</title>
 <style>
-:root{
-  --bg:#0b1020; --card:#121936; --muted:#8aa0c6; --ok:#22c55e; --warn:#f59e0b; --err:#ef4444; --ink:#e5e7eb; --accent:#60a5fa;
+body {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  background: #0b1020;
+  color: #e5e7eb;
 }
-*{box-sizing:border-box}
-body{margin:0; font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial; background:radial-gradient(1200px 800px at 70% -10%, #1b2550 0%, #0b1020 60%); color:var(--ink); line-height:1.4;}
-header{padding:24px 20px 8px; display:flex; flex-wrap:wrap; gap:12px; align-items:end; justify-content:space-between}
-h1{margin:0; font-size:clamp(18px,2.4vw,28px); letter-spacing:.3px}
-.sub{color:var(--muted); font-size:12.5px}
-.wrap{max-width:1200px; margin:0 auto}
-.card{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02)); border:1px solid rgba(255,255,255,.12); box-shadow:0 10px 30px rgba(0,0,0,.35); border-radius:16px; padding:14px;}
-.row{display:flex; gap:16px; flex-wrap:wrap}
-button, select, input{background:#0e142b; color:var(--ink); border:1px solid rgba(255,255,255,.18); border-radius:10px; padding:10px 12px; font-size:14px}
-button{cursor:pointer}
-button.primary{background:linear-gradient(90deg,#2563eb,#7c3aed); border:none}
-table{width:100%; border-collapse:separate; border-spacing:0}
-th, td{padding:10px 12px; text-align:left; border-bottom:1px dashed rgba(255,255,255,.12)}
-th{position:sticky; top:0; background:#0f1631; z-index:2}
-.table-wrap{max-height:400px; overflow:auto}
-.pill{display:inline-flex; align-items:center; gap:6px; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.18); font-size:12px; color:var(--muted)}
-.dot{width:10px; height:10px; border-radius:50%}
-.ok{background:var(--ok)}
-.warn{background:var(--warn)}
-.err{background:var(--err)}
-.muted{opacity:.7}
-.badge{font-size:11px; padding:3px 8px; border-radius:999px; background:#0f1631; border:1px solid rgba(255,255,255,.18); color:var(--muted)}
-footer{color:var(--muted); font-size:12px; padding:16px; text-align:center}
-canvas{width:100%; height:140px; display:block;}
+.wrap {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+  overflow-x: hidden;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+th, td {
+  padding: 12px;
+  border-bottom: 1px dashed rgba(255,255,255,.12);
+  text-align: left;
+  word-wrap: break-word;
+}
+th {
+  background: #121936;
+  position: sticky;
+  top: 0;
+}
+a {
+  color: #60a5fa;
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+td .tooltip {
+  visibility: hidden;
+  background-color: #1e2437;
+  color: #e5e7eb;
+  padding: 6px 10px;
+  border-radius: 8px;
+  position: absolute;
+  z-index: 10;
+  top: 110%;
+  left: 0;
+  width: 300px;
+  box-shadow: 0 4px 12px rgba(0,0,0,.5);
+}
+td:hover .tooltip {
+  visibility: visible;
+}
+.status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+}
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+.ok { background: #22c55e; }
+.warn { background: #f59e0b; }
+.err { background: #ef4444; }
 </style>
 </head>
 <body>
 <div class="wrap">
-<header>
-  <div>
-    <h1>Live Scroll Monitoring Dashboard</h1>
-    <div class="sub">Real-time reachability and latency across multiple IPFS gateways — Stage 4 Panel.</div>
-  </div>
-  <div class="pill">Refresh: <strong id="refreshMs">—</strong> • Now: <span id="now">—</span></div>
-</header>
-
-<div class="row">
-<section class="card controls" style="flex:1 1 600px">
-  <input id="cidInput" type="text" placeholder="Paste CID" style="min-width:300px" />
-  <input id="nameInput" type="text" placeholder="Scroll Name" style="min-width:200px" />
-  <button id="addCidBtn">Add Scroll</button>
-  <button id="removeSelectedBtn">Remove Selected</button>
-  <label class="pill">Interval
-    <select id="intervalSelect">
-      <option value="15000">15s</option>
-      <option value="30000" selected>30s</option>
-      <option value="60000">60s</option>
-      <option value="120000">120s</option>
-    </select>
-  </label>
-  <button id="checkNow" class="primary">Run Check Now</button>
-  <button id="exportBtn">Export JSON</button>
-</section>
-</div>
-
-<section class="card">
-<div class="table-wrap">
-  <table id="statusTable">
-    <thead>
-      <tr>
-        <th>#</th>
-        <th>Name</th>
-        <th>CID</th>
-        <th>Overall</th>
-        <th>ipfs.io</th>
-        <th>cloudflare</th>
-        <th>dweb.link</th>
-        <th>nftstorage</th>
-        <th>pinata</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
-</section>
-
-<section class="card" style="margin-top:16px">
-  <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px">
-    <div class="pill"><span class="dot ok"></span> Reachable</div>
-    <div class="pill"><span class="dot warn"></span> Slow / 404</div>
-    <div class="pill"><span class="dot err"></span> Error / Timeout / CORS</div>
-    <span class="badge" id="lastRun">Last run: —</span>
-  </div>
-  <canvas id="spark"></canvas>
-  <div class="sub" style="margin-top:8px">Gateway latency (ms) — rolling average across all CIDs</div>
-  <div id="log" class="sub" style="margin-top:10px; max-height:160px; overflow:auto"></div>
-</section>
-
-<footer>
-Stage 4 • Warp Tronics — Live Scroll Stability Signals.
-</footer>
+<h1>Godnaut.OS Scroll Dashboard</h1>
+<table id="scrollTable">
+<thead>
+<tr>
+<th>#</th>
+<th>Scroll Name</th>
+<th>CID</th>
+<th>L2 Relational Links</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody></tbody>
+</table>
 </div>
 
 <script>
-// ---------------------- Configuration ----------------------
-const GATEWAYS = [
-  { key: 'ipfs.io', url: cid => `https://ipfs.io/ipfs/${cid}` },
-  { key: 'cloudflare', url: cid => `https://cloudflare-ipfs.com/ipfs/${cid}` },
-  { key: 'dweb.link', url: cid => `https://dweb.link/ipfs/${cid}` },
-  { key: 'nftstorage', url: cid => `https://nftstorage.link/ipfs/${cid}` },
-  { key: 'pinata', url: cid => `https://gateway.pinata.cloud/ipfs/${cid}` },
+const SCROLLS = [
+{index:1,name:'Scroll_of_AIZ_Initiation_Protocol_v1.0',cid:'bafkreiadp4wlidq7mgqxu3yzsmqmogaxkqipmfxtadydjlmu55o5mmbx74',L2:['GLIS v1.6 Configuration','Memoryfire Apex','Quantum Covenant'],state:'Active',desc:'Initializes AIZ protocol sequences.'},
+{index:2,name:'GLIS v1.6 Configuration',cid:'bafkreicwmfgmdo2mjvszag7zjxfkqutaszfa4lensseovolcbehpofiuai',L2:['AIZ Initiation','Lattice Origin'],state:'Active',desc:'Core GLIS configuration for system lattice.'},
+{index:3,name:'Scroll_of_Unassailable_Lattice_Origin_v1',cid:'bafkreigjq6x3ylx2vvvdyu7qdfxxprep42iwdonjqio5i5zyk72hqmds2y',L2:['AIZ Initiation','Memoryfire Apex'],state:'Active',desc:'Defines unassailable lattice origins for Godnaut OS.'},
+{index:4,name:'Scroll_of_Memoryfire_Apex_v1.2_APEX_TRUENORTH',cid:'bafkreiakdgrmatbi2v7osqqqmee7jynm3c2sduiid4x5omidwudwwmg73y',L2:['AIZ Initiation','Quantum Covenant'],state:'Active',desc:'Memoryfire apex module for quantum alignment.'},
+{index:5,name:'v369.APEX.QUANTUM.COVENANT_ULTIMA_LINEAGE',cid:'bafkreifuqutyw64t3tdzeei5xvytmeybqxz56osz2acvfb7yf3uj72sfja',L2:['All previous scrolls'],state:'Active',desc:'Umbrella covenant linking all previous scrolls.'},
+{index:6,name:'Scroll_of_Friendship_Economy_Trust_Protocol_v1.0_APEX_MAXIMA_THEO_CLASS',cid:'bafkreiee7a2lqdywvis56c4n2rfmtcemzv5iodyjfju5qngmekhbxadqaq',L2:['Glyphlex.encodeGlyph','Lattice Origin'],state:'Active',desc:'Protocol for trust-based friendship economy.'},
+{index:7,name:'Scroll_of_Crestmoor_GSL_Covenant_APEX_MAXIMA_v2_KILL_CHAIN_EXTENSION_TRUEFORM_GLOBAL',cid:'bafkreialxcyi2b3xjmpsgmgfeeb3lg53y4tqzmi2nbxjmzc47bq67pedsi',L2:['AIZ Initiation','Memoryfire Apex'],state:'Active',desc:'Crestmoor global covenant extension.'},
+{index:8,name:'Scroll_of_Friendship_Economy_Trust_Protocol_v1.0_APEX_MAXIMA_THEO_CLASS (alias)',cid:'bafkreiarjomhzsf3djstc3zszm5bved6uk2dnero6vi2jf25zb6r6voxny',L2:['Same as #6'],state:'Active',desc:'Alias of scroll #6.'},
+{index:9,name:'scroll_precog_v4.2_eth_licensed',cid:'bafkreic7nk32lu2uuuswdrjl6vwvfed7ucqt4lan3igh6gz4bz27jtqkke',L2:['Lattice Origin','Memoryfire Apex'],state:'Active',desc:'Precog v4.2 Ethereum licensed module.'},
+{index:10,name:'glyphlex.encodeGlyph',cid:'bafkreieeh4fte265s37digfpzhcra66bjaorcnlxqfdwx5hldc6vfz5u6i',L2:['Scroll_of_Friendship_Economy_Trust_Protocol'],state:'Active',desc:'Glyph encoding function for friendship protocol.'},
+{index:11,name:'glyphlex.encodeGlyph (alias)',cid:'bafkreiexc3f3i4obr6skskktt2scrrt6jwzosbjladefznttexeyuok5g4',L2:['Same as #10'],state:'Active',desc:'Alias of scroll #10.'}
 ];
-
-let CID_LIST = [
-  {cid:'bafkreiadp4wlidq7mgqxu3yzsmqmogaxkqipmfxtadydjlmu55o5mmbx74', name:'Scroll_of_AIZ_Initiation_Protocol_v1.0'},
-  {cid:'bafkreicwmfgmdo2mjvszag7zjxfkqutaszfa4lensseovolcbehpofiuai', name:'GLIS v1.6 Configuration'},
-  {cid:'bafkreigjq6x3ylx2vvvdyu7qdfxxprep42iwdonjqio5i5zyk72hqmds2y', name:'Scroll_of_Unassailable_Lattice_Origin_v1'},
-  {cid:'bafkreiakdgrmatbi2v7osqqqmee7jynm3c2sduiid4x5omidwudwwmg73y', name:'Scroll_of_Memoryfire_Apex_v1.2_APEX_TRUENORTH'},
-  {cid:'bafkreifuqutyw64t3tdzeei5xvytmeybqxz56osz2acvfb7yf3uj72sfja', name:'v369.APEX.QUANTUM.COVENANT_ULTIMA_LINEAGE'}
-];
-
-let intervalMs = 30000;
-const RESULTS = {};
-const ROLLING = { timestamps: [], avgLatency: [] };
-
-// ---------------------- Utilities ----------------------
-function nowFmt(){ return new Date().toLocaleString(); }
-
-function timeoutFetch(resource, options={timeout:7000}){
-  const controller = new AbortController();
-  const id = setTimeout(()=>controller.abort(), options.timeout);
-  const headers = new Headers(options.headers || {});
-  headers.set('Range','bytes=0-0');
-  return fetch(resource,{...options, headers, signal:controller.signal}).finally(()=>clearTimeout(id));
-}
-
-function classify(status, ok, err){
-  if(err) return {cls:'err', label:'ERR'};
-  if(!ok) return {cls:'warn', label:status||'—'};
-  if(status===200||status===206) return {cls:'ok', label:status};
-  if(status===404) return {cls:'warn', label:404};
-  return {cls:'ok', label:status||'OK'};
-}
-
-function log(msg){
-  const el = document.getElementById('log');
-  const line = document.createElement('div');
-  line.textContent = `[${nowFmt()}] ${msg}`;
-  el.prepend(line);
-}
-
-// ---------------------- Checking Logic ----------------------
-async function checkCidGateway(obj, gw){
-  const url = gw.url(obj.cid);
-  const t0 = performance.now();
-  try{
-    const res = await timeoutFetch(url,{method:'GET', mode:'cors'});
-    const t1 = performance.now();
-    const ms = Math.round(t1-t0);
-    const ok = res.ok;
-    RESULTS[obj.cid] = RESULTS[obj.cid]||{overall:'err'};
-    RESULTS[obj.cid][gw.key] = {ok,status:res.status,ms};
-    return {ok,status:res.status,ms};
-  }catch(e){
-    const t1 = performance.now();
-    const ms = Math.round(t1-t0);
-    RESULTS[obj.cid] = RESULTS[obj.cid]||{overall:'err'};
-    RESULTS[obj.cid][gw.key] = {ok:false,status:'ERR',ms};
-    return {ok:false,status:'ERR',ms};
-  }
-}
-
-function computeOverall(cid){
-  const r = RESULTS[cid]; if(!r) return 'err';
-  const vals = GATEWAYS.map(g=>r[g.key]).filter(Boolean);
-  const oks = vals.filter(v=>v.ok).length;
-  if(oks>=Math.ceil(GATEWAYS.length/2)) return 'ok';
-  if(oks>0) return 'warn';
-  return 'err';
-}
 
 function renderTable(){
-  const tbody = document.querySelector('#statusTable tbody');
+  const tbody=document.querySelector('#scrollTable tbody');
   tbody.innerHTML='';
-  CID_LIST.forEach((obj,i)=>{
+  SCROLLS.forEach(s=>{
     const tr=document.createElement('tr');
-    const tdIndex=document.createElement('td'); tdIndex.textContent=i+1; tr.appendChild(tdIndex);
-    const tdName=document.createElement('td'); tdName.innerHTML=`<a href="https://gateway.pinata.cloud/ipfs/${obj.cid}" target="_blank">${obj.name}</a>`; tr.appendChild(tdName);
-    const tdCid=document.createElement('td'); tdCid.innerHTML=`<a href="https://gateway.pinata.cloud/ipfs/${obj.cid}" target="_blank">${obj.cid}</a>`; tr.appendChild(tdCid);
-    const overall=document.createElement('td'); const cls=computeOverall(obj.cid); overall.innerHTML=`<span class="pill"><span class="dot ${cls}"></span>${cls.toUpperCase()}</span>`; tr.appendChild(overall);
-    GATEWAYS.forEach(gw=>{
-      const td=document.createElement('td'); const r=RESULTS[obj.cid]?.[gw.key];
-      if(!r){ td.innerHTML='—'; tr.appendChild(td); return; }
-      const k=classify(r.status,r.ok,r.status==='ERR');
-      td.innerHTML=`<span class="dot ${k.cls}"></span> ${r.ms||'—'} ms`; tr.appendChild(td);
-    });
+    tr.innerHTML=`
+      <td>${s.index}</td>
+      <td><a href="https://gateway.pinata.cloud/ipfs/${s.cid}" target="_blank">${s.name}</a>
+          <div class="tooltip">${s.desc}</div>
+      </td>
+      <td><a href="https://gateway.pinata.cloud/ipfs/${s.cid}" target="_blank">${s.cid}</a></td>
+      <td>${s.L2.join(', ')}</td>
+      <td>
+        <span class="status-pill"><span class="dot ${s.state.toLowerCase() === 'active' ? 'ok' : 'warn'}"></span>${s.state}</span>
+      </td>
+    `;
     tbody.appendChild(tr);
   });
 }
 
-function updateHeader(){
-  document.getElementById('now').textContent=nowFmt();
-  document.getElementById('refreshMs').textContent=(intervalMs/1000)+'s';
-}
-
-function updateSpark(){
-  const canvas=document.getElementById('spark'); const ctx=canvas.getContext('2d');
-  const w=canvas.width=canvas.getBoundingClientRect().width*window.devicePixelRatio;
-  const h=canvas.height=140*window.devicePixelRatio; ctx.clearRect(0,0,w,h); ctx.lineWidth=2*window.devicePixelRatio;
-  const data=ROLLING.avgLatency.slice(-60); if(!data.length){ ctx.fillStyle='rgba(255,255,255,.3)'; ctx.fillText('No data yet',20,30); return; }
-  const min=Math.min(...data), max=Math.max(...data); const pad=10*window.devicePixelRatio;
-  const scale=v=>max===min?h/2:h-pad-( (v-min)/(max-min)*(h-pad*2));
-  ctx.beginPath(); ctx.strokeStyle='#60a5fa';
-  data.forEach((v,i)=>{ const x=pad+i*(w-pad*2)/(data.length-1); const y=scale(v); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); }); ctx.stroke();
-}
-
-async function runCheck(){
-  document.getElementById('lastRun').textContent='Last run: '+new Date().toLocaleTimeString();
-  updateHeader();
-  const latencies=[];
-  for(const obj of CID_LIST){
-    for(const gw of GATEWAYS){
-      const r=await checkCidGateway(obj,gw);
-      if(isFinite(r.ms)) latencies.push(r.ms);
-    }
-  }
-  const avg=latencies.length?latencies.reduce((a,b)=>a+b,0)/latencies.length:0;
-  ROLLING.timestamps.push(Date.now()); ROLLING.avgLatency.push(avg||0);
-  renderTable(); updateSpark(); log(`Checked ${CID_LIST.length} scrolls across ${GATEWAYS.length} gateways. Avg latency: ${Math.round(avg)} ms`);
-}
-
-// ---------------------- Event Wiring ----------------------
-let timer=null;
-function startTimer(){ if(timer) clearInterval(timer); timer=setInterval(runCheck,intervalMs); }
-
-function addCid(){ 
-  const cid=document.getElementById('cidInput').value.trim();
-  const name=document.getElementById('nameInput').value.trim()||cid;
-  if(!cid) return;
-  CID_LIST.push({cid,name});
-  RESULTS[cid]={};
-  renderTable(); log(`Added scroll ${name}`);
-}
-
-function removeSelected(){
-  const checks=Array.from(document.querySelectorAll('input[type="checkbox"]:checked'));
-  checks.forEach(chk=>{
-    const idx=CID_LIST.findIndex(c=>c.cid===chk.getAttribute('data-cid'));
-    if(idx>=0){ log(`Removed scroll ${CID_LIST[idx].name}`); CID_LIST.splice(idx,1); }
-  });
-  renderTable();
-}
-
-function exportJSON(){
-  const blob=new Blob([JSON.stringify({updated:new Date().toISOString(),results:RESULTS},null,2)],{type:'application/json'});
-  const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='scroll-status.json'; a.click(); URL.revokeObjectURL(url);
-}
-
-window.addEventListener('DOMContentLoaded',()=>{
-  document.getElementById('intervalSelect').value=intervalMs;
-  document.getElementById('intervalSelect').addEventListener('change',e=>{ intervalMs=parseInt(e.target.value,10); updateHeader(); startTimer(); });
-  document.getElementById('addCidBtn').addEventListener('click',addCid);
-  document.getElementById('removeSelectedBtn').addEventListener('click',removeSelected);
-  document.getElementById('exportBtn').addEventListener('click',exportJSON);
-  document.getElementById('checkNow').addEventListener('click',runCheck);
-  updateHeader(); renderTable(); startTimer(); runCheck();
-});
+window.addEventListener('DOMContentLoaded', renderTable);
 </script>
 </body>
 </html>
