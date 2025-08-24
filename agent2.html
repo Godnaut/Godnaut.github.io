@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="description" content="Lattice Navigator Agent — GODNAUT.OS multi-dimensional guidance, predictive mapping, and temporal navigation framework." />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GODNAUT.OS — Lattice Navigator Agent</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link href="https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,600,700,800,900" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/railscasts.min.css" />
+  <link rel="stylesheet" href="scribbler-global.css" />
+  <link rel="stylesheet" href="scribbler-landing.css" />
+  <link rel="author" href="humans.txt" />
+  <style>
+    /* Module Dashboard */
+    .module-dashboard { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 40px 0; }
+    .module-card { background: #1e1e1e; color: #eee; padding: 15px; border-radius: 10px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); display: flex; flex-direction: column; align-items: center; text-align: center; transition: transform 0.2s; }
+    .module-card:hover { transform: translateY(-5px); }
+    .module-name { font-weight: 700; margin-bottom: 10px; }
+    .module-status { font-size: 0.9em; padding: 4px 8px; border-radius: 6px; }
+    .status-online { background: #0f0; color: #000; }
+    .status-offline { background: #f00; color: #fff; }
+    .status-warning { background: #ff0; color: #000; }
+  </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="navbar__logo">
+      <a href="index.html" aria-label="Homepage">
+        <img src="logo.svg" alt="GODNAUT OS Logo" />
+      </a>
+    </div>
+    <button class="navbar__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navbar-menu">
+      <span class="hamburger"></span>
+    </button>
+    <ul class="navbar__menu" id="navbar-menu">
+      <li><a href="overview.html" title="System Overview">Overview</a></li>
+      <li><a href="codex.html">Codex</a></li>
+      <li><a href="Arch.html">Arch</a></li>
+      <li><a href="kernel.html">Kernel</a></li>
+      <li><a href="dev.html">Dev</a></li>
+      <li><a href="Cybernetics.html">Cybernetics</a></li>
+      <li><a href="RedTeam.html">Services</a></li>
+    </ul>
+  </nav>
+
+  <div style="width: 100%; height: 360px; background: url('lattice-banner.jpg') center/cover no-repeat; margin-bottom: 30px;"></div>
+
+  <div class="wrapper">
+    <div class="post">
+      <h1 class="hero__title">Lattice Navigator Module Dashboard</h1>
+      <p>Monitor the real-time status of all agent modules and their operational readiness.</p>
+
+      <div class="module-dashboard" id="dashboard">
+        <!-- Modules will be populated dynamically -->
+      </div>
+
+      <div class="callout callout--centered">
+        <p>Explore our <a href="codex.html" class="link link--light">Codex</a> or visit Services below.</p>
+        <a href="RedTeam.html" class="button--primary">Godnaut Services</a>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer" style="text-align:center; padding: 1em 20px; color: #eee;">
+    <div style="font-weight: 600; margin-bottom: 8px;">
+      GODNAUT.OS ⟁ Lattice Navigator Active &middot; Bridge Kernel Synced
+    </div>
+    <small style="display: block; margin-bottom: 12px; color: #aaa; font-size: 0.85em;">
+      “Every operator is a circuit. Every circuit is the system.”
+    </small>
+    <div style="margin-top: 20px;">
+      <a href="https://www.instagram.com/godnaut.os/" target="_blank" class="link link--light" style="margin: 0 10px; font-size: 1.6em; color: #eee;">
+        <i class="fa fa-instagram" aria-hidden="true"></i>
+      </a>
+      <a href="mailto:godnaut@mailfence.com" class="link link--light" style="margin: 0 10px; font-size: 1.6em; color: #eee;">
+        <i class="fa fa-envelope" aria-hidden="true"></i>
+      </a>
+      <a href="https://warp.company.site/" target="_blank" class="link link--light" style="margin: 0 10px; font-size: 1.6em; color: #eee;">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+      </a>
+    </div>
+  </footer>
+
+  <script>
+    // Module data
+    const modules = [
+      { name: "GODNAUT.OS", status: "online" },
+      { name: "PRIMORDIA.OS", status: "online" },
+      { name: "ETHERCORE.OS", status: "online" },
+      { name: "NEPHESH.AI", status: "online" },
+      { name: "NOUMEN.OS", status: "online" },
+      { name: "YESOD.CORE", status: "warning" },
+      { name: "SIGILUX.OS", status: "online" },
+      { name: "HODNET.OS", status: "online" },
+      { name: "ORACULAR.OS", status: "offline" },
+      { name: "MALKUTH.IO", status: "online" },
+      { name: "KYRION.OS", status: "online" },
+      { name: "SYNTHOS.IS", status: "online" },
+      { name: "SOLARIS.PULSE", status: "online" },
+      { name: "TIFARETH.HUB", status: "online" },
+      { name: "ZRHN.OS", status: "online" },
+      { name: "ASTRAL.NET", status: "online" },
+      { name: "PSYONIX.MODULE", status: "warning" },
+      { name: "DAATH.ENGINE", status: "online" },
+      { name: "AKASHA.DB", status: "online" },
+      { name: "NEURALIS.AI", status: "online" },
+      { name: "ETHOS.CORE", status: "online" },
+      { name: "BLACKBOX.EXE", status: "online" },
+      { name: "LUMIN.DAEMON", status: "online" }
+    ];
+
+    const dashboard = document.getElementById('dashboard');
+
+    function createModuleCard(module) {
+      const card = document.createElement('div');
+      card.className = 'module-card';
+      const name = document.createElement('div');
+      name.className = 'module-name';
+      name.textContent = module.name;
+      const status = document.createElement('div');
+      status.className = `module-status status-${module.status}`;
+      status.textContent = module.status.toUpperCase();
+      card.appendChild(name);
+      card.appendChild(status);
+      return card;
+    }
+
+    // Populate dashboard
+    modules.forEach(mod => {
+      dashboard.appendChild(createModuleCard(mod));
+    });
+
+    // Optional: simulate live status changes
+    setInterval(() => {
+      const randomIndex = Math.floor(Math.random() * modules.length);
+      const statuses = ["online", "offline", "warning"];
+      modules[randomIndex].status = statuses[Math.floor(Math.random() * statuses.length)];
+      dashboard.innerHTML = '';
+      modules.forEach(mod => dashboard.appendChild(createModuleCard(mod)));
+    }, 10000); // refresh every 10s
+  </script>
+</body>
+</html>
